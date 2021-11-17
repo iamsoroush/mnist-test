@@ -5,12 +5,14 @@ input_height: 28 # For resizing and model creation
 input_width: 28 # For resizing and model creation
 # n_channels must be set in code based on dataset and task
 
+src_code_path: 'src' # '.' if packages are in root directory of repository
+
 # Classes
-data_loader_class: src.dataset.DataLoaderTF # Required
-model_class: src.models.ModelBuilder # Required
-preprocessor_class: src.preprocessing.Preprocessror # Required
-#augmentor_class: src.augmentation.Augmentor
-evaluator_class: src.evaluation.Evaluator
+data_loader_class: dataset.DataLoaderTF # Required
+model_class: models.ModelBuilder # Required
+preprocessor_class: preprocessing.Preprocessror # Required
+#augmentor_class: augmentation.Augmentor
+evaluator_class: evaluation.Evaluator
 
 # Epochs
 epochs: 50
@@ -30,7 +32,7 @@ model_builder:
   dropout_rate: 0.2
 
 # Parameters for instantiating Preprocessor
-preprocess:
+preprocessor:
   normalize_by: 255
 
 # Parameters for instantiating augmentation
