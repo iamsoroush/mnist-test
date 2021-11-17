@@ -1,6 +1,6 @@
 # Global
 seed: 101
-dataset_dir: "datasets/mnist" # Required, fetch dataset using its unique identifier from ``dataset``
+dataset_dir: "scratch/datasets/mnist" # Required
 input_height: 28 # For resizing and model creation
 input_width: 28 # For resizing and model creation
 # n_channels must be set in code based on dataset and task
