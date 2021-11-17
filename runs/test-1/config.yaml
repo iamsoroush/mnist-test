@@ -1,0 +1,54 @@
+# Global
+seed: 101
+dataset_dir: "datasets/mnist" # Required, fetch dataset using its unique identifier from ``dataset``
+input_height: 28 # For resizing and model creation
+input_width: 28 # For resizing and model creation
+# n_channels must be set in code based on dataset and task
+
+# Classes
+data_loader_class: src.dataset.DataLoaderTF # Required
+model_class: src.models.ModelBuilder # Required
+preprocessor_class: src.preprocessing.Preprocessror # Required
+#augmentor_class: src.augmentation.Augmentor
+evaluator_class: src.evaluation.Evaluator
+
+# Epochs
+epochs: 50
+
+# Batch-size
+batch_size: 8
+
+# Parameters for instantiating DataLoader
+data_loader:
+  shuffle: True # on training data
+
+# Parameters for model-builder
+model_builder:
+  name: "baseline-unet"
+  activation: 'relu'
+  n_filters: 512
+  dropout_rate: 0.2
+
+# Parameters for instantiating Preprocessor
+preprocess:
+  normalize_by: 255
+
+# Parameters for instantiating augmentation
+do_train_augmentation: False
+do_validation_augmentation: False
+#augmentation:
+#  rotation_proba: 0.5
+#  rotation_range: 45
+#  flip_proba: 0.5
+
+## Parameters for instantiating PostProcessor, this class is optional.
+#post_process:
+#  inference_threshold: 0.5
+
+# Parameters for exporting, will be used by trainer
+export:
+  metric: "val_loss"
+  mode: "min"
+
+# MLFlow
+project_name: 'mnist' # will be used as mlflow's experiment_name
