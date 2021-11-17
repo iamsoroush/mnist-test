@@ -26,7 +26,7 @@ if __name__ == '__main__':
     train_labels = train_labels[:1000]
     test_labels = test_labels[:1000]
 
-    data_dir = pathlib.Path('/home/vafaeisa/datasets').joinpath('mnist')
+    data_dir = pathlib.Path('/home/vafaeisa/scratch/datasets').joinpath('mnist')
     data_dir.mkdir(parents=True, exist_ok=True)
 
     train_img_dir = data_dir.joinpath('train')
