@@ -5,7 +5,7 @@ from abstractions import PreprocessorBase
 
 class PreprocessorTF(PreprocessorBase):
     def image_preprocess(self, image):
-        return tf.reshape(image, (self.input_h * self.input_w, 1)) / self.normalize_by
+        return tf.reshape(image, (self.input_h * self.input_w,)) / self.normalize_by
 
     def _wrapper_image_preprocess(self, x, y, w):
         pre_processed = self.image_preprocess(x)

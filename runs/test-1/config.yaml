@@ -1,6 +1,6 @@
 # Global
 seed: 101
-dataset_dir: "/home/vafaeisa/scratch/datasets/mnist" # Required
+#dataset_dir: "/home/vafaeisa/scratch/datasets/mnist" # Required
 input_height: 28 # For resizing and model creation
 input_width: 28 # For resizing and model creation
 # n_channels must be set in code based on dataset and task
@@ -10,7 +10,7 @@ src_code_path: 'src' # '.' if packages are in root directory of repository
 # Classes
 data_loader_class: dataset.DataLoaderTF # Required
 model_class: models.ModelBuilder # Required
-preprocessor_class: preprocessing.Preprocessror # Required
+preprocessor_class: preprocessing.PreprocessrorTF # Required
 #augmentor_class: augmentation.Augmentor
 evaluator_class: evaluation.Evaluator
 

@@ -8,6 +8,7 @@ from abstractions import DataLoaderBase
 
 
 class DataLoaderTF(DataLoaderBase):
+
     def create_training_generator(self):
         labels_csv = pd.read_csv(self.train_data_dir.joinpath('labels.csv'))
         n_data = len(labels_csv)
@@ -53,14 +54,14 @@ class DataLoaderTF(DataLoaderBase):
         return train_ds, n_data
 
     def _load_params(self, config):
-        self.data_dir = pathlib.Path(config.dataset_dir)
+        # self.data_dir = pathlib.Path(config.dataset_dir)
         self.train_data_dir = self.data_dir.joinpath('train')
         self.val_data_dir = self.data_dir.joinpath('validation')
         self.test_data_dir = self.data_dir.joinpath('test')
         self.shuffle = config.data_loader.shuffle
 
     def _set_defaults(self):
-        self.data_dir = pathlib.Path('datasets').joinpath('mnist')
+        # self.data_dir = pathlib.Path('datasets').joinpath('mnist')
         self.train_data_dir = self.data_dir.joinpath('train')
         self.val_data_dir = self.data_dir.joinpath('validation')
         self.test_data_dir = self.data_dir.joinpath('test')
