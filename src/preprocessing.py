@@ -1,3 +1,4 @@
+import abstractions.utils
 import tensorflow as tf
 
 from abstractions import PreprocessorBase
@@ -20,17 +21,19 @@ class PreprocessorTF(PreprocessorBase):
     def add_label_preprocess(self, generator):
         return generator
 
-    def batchify(self, generator, n_data_points, batch_size):
-        gen = generator.batch(batch_size).repeat()
-        n_iter = n_data_points // batch_size + int((n_data_points % batch_size) > 0)
+    def batchify(self, generator, n_data_points):
+        gen = generator.batch(self.batch_size).repeat()
+        n_iter = n_data_points // self.config.batch_size + int((n_data_points % self.batch_size) > 0)
         return gen, n_iter
 
-    def _load_params(self, config):
+    def _load_params(self, config: abstractions.utils.ConfigStruct):
         self.normalize_by = config.preprocessor.normalize_by
         self.input_h = config.input_height
         self.input_w = config.input_width
+        self.batch_size = config.batch_size
 
     def _set_defaults(self):
         self.normalize_by = 255
         self.input_h = 28
         self.input_w = 28
+        self.batch_size = 8
