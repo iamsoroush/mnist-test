@@ -9,7 +9,7 @@ src_code_path: 'src' # '.' if packages are in root directory of repository
 
 # Classes
 data_loader_class: dataset.DataLoaderTF # Required
-model_class: models.ModelBuilder # Required
+model_builder_class: models.ModelBuilder # Required
 preprocessor_class: preprocessing.PreprocessorTF # Required
 #augmentor_class: augmentation.Augmentor
 evaluator_class: evaluation.Evaluator
