@@ -1,5 +1,6 @@
-import abstractions.utils
+from abstractions.utils import ConfigStruct
 import tensorflow as tf
+import numpy as np
 
 from abstractions import PreprocessorBase
 
@@ -23,10 +24,58 @@ class PreprocessorTF(PreprocessorBase):
 
     def batchify(self, generator, n_data_points):
         gen = generator.batch(self.batch_size).repeat()
-        n_iter = n_data_points // self.config.batch_size + int((n_data_points % self.batch_size) > 0)
+        n_iter = n_data_points // self.batch_size + int((n_data_points % self.batch_size) > 0)
         return gen, n_iter
 
-    def _load_params(self, config: abstractions.utils.ConfigStruct):
+    def _load_params(self, config: ConfigStruct):
+        self.normalize_by = config.preprocessor.normalize_by
+        self.input_h = config.input_height
+        self.input_w = config.input_width
+        self.batch_size = config.batch_size
+
+    def _set_defaults(self):
+        self.normalize_by = 255
+        self.input_h = 28
+        self.input_w = 28
+        self.batch_size = 8
+
+
+class Preprocessor(PreprocessorBase):
+
+    def image_preprocess(self, image):
+        return np.reshape(image, (self.input_h * self.input_w)) / self.normalize_by
+
+    def label_preprocess(self, label):
+        return label
+
+    def add_image_preprocess(self, generator):
+        while True:
+            x, y, w = next(generator)
+            yield self.image_preprocess(x), y, w
+
+    def add_label_preprocess(self, generator):
+        while True:
+            x, y, w = next(generator)
+            yield x, self.label_preprocess(y), w
+        # return generator
+
+    def batchify(self, generator, n_data_points):
+        n_iter = n_data_points // self.batch_size + int((n_data_points % self.batch_size) > 0)
+        gen = self._batch_gen(generator, self.batch_size)
+        return gen, n_iter
+
+    @staticmethod
+    def _batch_gen(generator, batch_size):
+        while True:
+            x_b, y_b, z_b = list(), list(), list()
+            for i in range(batch_size):
+                x, y, z = next(generator)
+                x_b.append(x)
+                y_b.append(y)
+                z_b.append(z)
+            yield np.array(x_b), np.array(y_b), np.array(z_b)
+
+    def _load_params(self, config: ConfigStruct):
         self.normalize_by = config.preprocessor.normalize_by
         self.input_h = config.input_height
         self.input_w = config.input_width
