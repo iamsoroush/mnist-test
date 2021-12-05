@@ -1,11 +1,11 @@
 # Global
 seed: 101
-#dataset_dir: "/home/vafaeisa/scratch/datasets/mnist" # Required
 input_height: 28 # For resizing and model creation
 input_width: 28 # For resizing and model creation
 # n_channels must be set in code based on dataset and task
 
-src_code_path: 'src' # '.' if packages are in root directory of repository
+src_code_path: 'src'
+data_dir: '/home/vafaeisa/scratch/datasets/mnist'
 
 # Classes
 data_loader_class: dataset.DataLoaderTF # Required, relative to `src_code_path`
@@ -43,14 +43,7 @@ do_validation_augmentation: False
 #  rotation_range: 45
 #  flip_proba: 0.5
 
-## Parameters for instantiating PostProcessor, this class is optional.
-#post_process:
-#  inference_threshold: 0.5
-
 # Parameters for exporting, will be used by trainer
 export:
   metric: "val_loss"
   mode: "min"
-
-# MLFlow
-project_name: 'mnist' # will be used as mlflow's experiment_name
