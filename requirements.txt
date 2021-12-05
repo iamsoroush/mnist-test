@@ -1,0 +1,14 @@
+tensorflow
+pandas
+scikit-learn
+scikit-image
+scipy
+matplotlib
+mlflow
+abstractions-aimedic
+SimpleITK
+pyyaml
+albumentations
+tqdm
+pytest
+pytest-dependency
