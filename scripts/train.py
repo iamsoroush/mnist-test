@@ -35,7 +35,7 @@ def train():
     if mlflow_tracking_uri is None:
         mlflow_tracking_uri = MLFLOW_TRACKING_URI
     else:
-        mlflow_tracking_uri = Path(mlflow_tracking_uri)
+        mlflow_tracking_uri = str(mlflow_tracking_uri)
 
     eval_reports_dir = os.getenv('EVAL_REPORTS_DIR')
     if eval_reports_dir is None:
