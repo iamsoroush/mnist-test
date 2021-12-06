@@ -5,7 +5,8 @@ input_width: 28 # For resizing and model creation
 # n_channels must be set in code based on dataset and task
 
 src_code_path: 'src'
-data_dir: '/home/vafaeisa/scratch/datasets/mnist'
+#data_dir: '/home/vafaeisa/scratch/datasets/mnist'
+data_dir: 'datasets/mnist'
 
 # Classes
 data_loader_class: dataset.DataLoaderTF # Required, relative to `src_code_path`
@@ -15,7 +16,7 @@ preprocessor_class: preprocessing.PreprocessorTF # Required, relative to `src_co
 evaluator_class: evaluation.Evaluator # Required, relative to `src_code_path`
 
 # Epochs
-epochs: 50
+epochs: 20
 
 # Batch-size
 batch_size: 8

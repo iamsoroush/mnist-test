@@ -13,7 +13,7 @@ class ModelBuilder(ModelBuilderBase):
         ])
 
         model.compile(optimizer='adam',
-                      loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),
+                      loss=tf.losses.SparseCategoricalCrossentropy(from_logits=False),
                       metrics=[tf.metrics.SparseCategoricalAccuracy()])
 
         return model

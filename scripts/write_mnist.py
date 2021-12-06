@@ -3,6 +3,9 @@ import skimage.io
 import pathlib
 import pandas as pd
 
+# data_dir = pathlib.Path('/home/vafaeisa/scratch/datasets')
+data_dir = pathlib.Path('datasets')
+
 
 def write_images(images, labels_list, img_dir):
     labels = {}
@@ -26,7 +29,7 @@ if __name__ == '__main__':
     train_labels = train_labels[:1000]
     test_labels = test_labels[:1000]
 
-    data_dir = pathlib.Path('/home/vafaeisa/scratch/datasets').joinpath('mnist')
+    data_dir = data_dir.joinpath('mnist')
     data_dir.mkdir(parents=True, exist_ok=True)
 
     train_img_dir = data_dir.joinpath('train')
