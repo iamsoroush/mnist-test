@@ -6,26 +6,26 @@ from abstractions import PreprocessorBase
 
 
 class PreprocessorTF(PreprocessorBase):
-    def image_preprocess(self, image):
-        return tf.reshape(image, (self.input_h * self.input_w,)) / self.normalize_by
-
-    def _wrapper_image_preprocess(self, x, y, w):
-        pre_processed = self.image_preprocess(x)
-        return pre_processed, y, w
-
-    def label_preprocess(self, label):
-        return label
-
     def add_image_preprocess(self, generator):
         return generator.map(self._wrapper_image_preprocess)
 
     def add_label_preprocess(self, generator):
         return generator
 
+    def add_weight_preprocess(self, generator):
+        return generator
+
     def batchify(self, generator, n_data_points):
         gen = generator.batch(self.batch_size).repeat()
         n_iter = n_data_points // self.batch_size + int((n_data_points % self.batch_size) > 0)
         return gen, n_iter
+
+    def image_preprocess(self, image):
+        return tf.reshape(image, (self.input_h * self.input_w,)) / self.normalize_by
+
+    def _wrapper_image_preprocess(self, x, y, w):
+        pre_processed = self.image_preprocess(x)
+        return pre_processed, y, w
 
     def _load_params(self, config: ConfigStruct):
         self.normalize_by = config.preprocessor.normalize_by
@@ -41,28 +41,24 @@ class PreprocessorTF(PreprocessorBase):
 
 
 class Preprocessor(PreprocessorBase):
-
-    def image_preprocess(self, image):
-        return np.reshape(image, (self.input_h * self.input_w)) / self.normalize_by
-
-    def label_preprocess(self, label):
-        return label
-
     def add_image_preprocess(self, generator):
         while True:
             x, y, w = next(generator)
             yield self.image_preprocess(x), y, w
 
     def add_label_preprocess(self, generator):
-        while True:
-            x, y, w = next(generator)
-            yield x, self.label_preprocess(y), w
-        # return generator
+        return generator
+
+    def add_weight_preprocess(self, generator):
+        return generator
 
     def batchify(self, generator, n_data_points):
         n_iter = n_data_points // self.batch_size + int((n_data_points % self.batch_size) > 0)
         gen = self._batch_gen(generator, self.batch_size)
         return gen, n_iter
+
+    def image_preprocess(self, image):
+        return np.reshape(image, (self.input_h * self.input_w)) / self.normalize_by
 
     @staticmethod
     def _batch_gen(generator, batch_size):

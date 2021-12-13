@@ -16,10 +16,10 @@ preprocessor_class: preprocessing.PreprocessorTF # Required, relative to `src_co
 evaluator_class: evaluation.Evaluator # Required, relative to `src_code_path`
 
 # Epochs
-epochs: 20
+epochs: 50
 
 # Batch-size
-batch_size: 8
+batch_size: 32
 
 # Parameters for instantiating DataLoader
 data_loader:
