@@ -4,7 +4,7 @@ import pathlib
 import pandas as pd
 
 # data_dir = pathlib.Path('/home/vafaeisa/scratch/datasets')
-data_dir = pathlib.Path('datasets')
+data_dir = pathlib.Path('../datasets')
 
 
 def write_images(images, labels_list, img_dir):
